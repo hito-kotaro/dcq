@@ -1,4 +1,5 @@
 require('dotenv').config();
+const ssl = process.env.ENV === 'prod' ? { rejectUnauthorized: true } : '';
 config = {
   dialect: process.env.DB_DIARECT,
   database: process.env.DB_NAME,
@@ -7,5 +8,6 @@ config = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   logging: false,
+  ssl,
 };
 module.exports = config;
