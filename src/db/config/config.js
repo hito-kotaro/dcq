@@ -8,6 +8,8 @@ config = {
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   logging: false,
-  ssl,
+  dialectOptions: {
+    ssl,
+  },
 };
 module.exports = config;
