@@ -9,7 +9,7 @@ if (process.env.ENV === 'prod') {
     port: process.env.DB_PORT,
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
-    logging: false,
+    // logging: false,
     dialectOptions: {
       ssl: { rejectUnauthorized: true },
     },
