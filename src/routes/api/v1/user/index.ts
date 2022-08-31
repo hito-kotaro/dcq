@@ -2,13 +2,6 @@ import express, { Request, Response } from 'express';
 const models = require('../../../../db/models');
 const router = express.Router();
 
-type user = {
-  name: string;
-  email: string;
-  password: string;
-  point: number;
-};
-
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
