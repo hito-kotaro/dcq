@@ -1,7 +1,6 @@
-import { Request, Response } from 'express';
+import express, { Request, Response } from 'express';
 import type user from '../../../../types/models';
 
-const express = require('express');
 const models = require('../../../../db/models');
 
 const router = express.Router();
