@@ -1,7 +1,9 @@
-require('dotenv').config();
 import express, { Request, Response } from 'express';
-import router from './routes/api/v1';
 import bodyParser from 'body-parser';
+import router from './routes/api/v1';
+
+require('dotenv').config();
+
 const app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));

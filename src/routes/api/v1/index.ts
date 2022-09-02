@@ -1,14 +1,15 @@
 import express, { Request, Response } from 'express';
-import user from './user';
+import userRouter from './user';
+
 const router = express.Router();
 
 // routerにルーティングの動作を書いてく
-router.get('/', function (req: Request, res: Response) {
+router.get('/', (_req: Request, res: Response) => {
   res.json({
     message: 'Hello,world',
   });
 });
 
-router.use('/user', user);
+router.use('/user', userRouter);
 
 export default router;

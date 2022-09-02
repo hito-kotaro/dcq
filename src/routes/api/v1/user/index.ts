@@ -1,5 +1,9 @@
-import express, { Request, Response } from 'express';
+import { Request, Response } from 'express';
+import type user from '../../../../types/models';
+
+const express = require('express');
 const models = require('../../../../db/models');
+
 const router = express.Router();
 
 router.use(express.json());
@@ -7,9 +11,9 @@ router.use(express.urlencoded({ extended: true }));
 
 // user存在チェック emailを受け取って存在すればTしなければFを返す
 const isExistUser = async (email: string) => {
-  const result = await models.User.findAll({ where: { email: email } });
-  console.log(result > 0 ? true : false);
-  const isExist = result > 0 ? true : false;
+  const result = await models.User.findAll({ where: { email } });
+  console.log(result > 0);
+  const isExist = result > 0;
   return isExist;
 };
 
@@ -28,10 +32,8 @@ router.get('/test', async (_req: Request, res: Response) => {
 // GET  http://localhost:3000/api/v1/user/
 router.get('/', async (req: Request, res: Response) => {
   const result = await models.User.findAll();
-  let users: user[] = [];
-  result.map((u: user) => {
-    users.push(u);
-  });
+  const users: user[] = [];
+  result.map((u: user) => users.push(u));
   res.json(users);
 });
 
@@ -46,6 +48,6 @@ router.post('/create', async (req: Request, res: Response) => {
   res.send(result);
 });
 
-//routerをモジュールとして扱う準備
-// module.exports = router;
+// routerをモジュールとして扱う準備
+module.exports = router;
 export default router;

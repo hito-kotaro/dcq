@@ -4,3 +4,5 @@ type user = {
   password: string;
   point: number;
 };
+
+export default user;
