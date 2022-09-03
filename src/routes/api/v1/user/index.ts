@@ -59,14 +59,24 @@ router.delete('/delete/:id', async (req: Request, res: Response) => {
 // アカウントの更新
 router.put('/update/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
-  models.Accounts.findOne({ where: { id } }).then((user: any) => {
-    if (user) {
-      res.json({ status: 200, message: 'ok exist' });
-    } else {
-      res.json({ status: 422, message: 'no exist' });
-    }
-  });
+  const accountId = req.body.account_id;
+  models.User.findOne({ where: { id, account_id: accountId } }).then(
+    (user: any) => {
+      if (user) {
+        // パスワードとユーザー名のどちらを更新するか判定して更新する。
+        if (req.body.name) {
+          user.name = req.body.name;
+          res.json({ status: 200, message: 'update user name' });
+        } else if (req.body.password) {
+          user.password = req.body.password;
+          res.json({ status: 200, message: 'update password' });
+        }
+        user.save();
+      } else {
+        res.json({ status: 422, message: 'user not exist' });
+      }
+    },
+  );
 });
 
-// routerをモジュールとして扱う準備
 export default router;
