@@ -1,9 +1,12 @@
 import express, { Request, Response } from 'express';
-import type user from '../../../../types/models';
+import { currentDate } from '../../../../utils/getDate';
+import type { user } from '../../../../types/models';
 
 const models = require('../../../../db/models');
 
 const router = express.Router();
+
+type newUser = Omit<user, 'id' | 'created_at' | 'updated_at'>;
 
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
@@ -16,6 +19,8 @@ const isExistUser = async (email: string) => {
   return isExist;
 };
 
+// fixme: SELECTで取得した時刻がUTCになってしまう。
+// DBにはJSTでINSERTした時刻になっているが、sequerizeで取り出す時に変換されている？
 router.get('/test', async (_req: Request, res: Response) => {
   const isExist = await isExistUser('1');
   if (isExist) {
@@ -31,6 +36,7 @@ router.get('/test', async (_req: Request, res: Response) => {
 // GET  http://localhost:3000/api/v1/user/
 router.get('/', async (req: Request, res: Response) => {
   const result = await models.User.findAll();
+  console.log(result);
   const users: user[] = [];
   result.map((u: user) => users.push(u));
   res.json(users);
@@ -38,12 +44,16 @@ router.get('/', async (req: Request, res: Response) => {
 
 router.post('/create', async (req: Request, res: Response) => {
   console.log(req.body);
-  const result = await models.User.create({
+  const postuser: newUser = {
     name: req.body.name,
-    email: req.body.email,
-    password: req.body.password,
+    password: req.body.name,
     point: 0,
-  });
+    account_id: req.body.account_id,
+    group_id: 1,
+    role_id: 1,
+  };
+
+  const result = await models.User.create(postuser);
   res.send(result);
 });
 

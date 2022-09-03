@@ -19,6 +19,8 @@ module.exports = (sequelize, DataTypes) => {
       account_id: DataTypes.INTEGER,
       group_id: DataTypes.INTEGER,
       role_id: DataTypes.INTEGER,
+      created_at: 'TIMESTAMP',
+      updated_at: 'TIMESTAMP',
     },
     {
       sequelize,

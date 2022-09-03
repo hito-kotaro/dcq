@@ -6,6 +6,7 @@
   "scripts": {
     "db:up": "node_modules/.bin/sequelize db:migrate --config src/db/config/config.js",
     "db:down": "node_modules/.bin/sequelize db:migrate:undo --config src/db/config/config.js",
+    "db:down:all": "node_modules/.bin/sequelize db:migrate:undo:all --config src/db/config/config.js --to 20220828111602-create-user.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src/**/*.ts",
     "dev": "npm-run-all db:up && nodemon  --exec ts-node --files src/index.ts",
