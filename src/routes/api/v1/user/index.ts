@@ -1,12 +1,12 @@
 import express, { Request, Response } from 'express';
 import { currentDate } from '../../../../utils/getDate';
-import type { user } from '../../../../types/models';
+import type { userType } from '../../../../types/models';
 
 const models = require('../../../../db/models');
 
 const router = express.Router();
 
-type newUser = Omit<user, 'id' | 'created_at' | 'updated_at'>;
+type newUserType = Omit<userType, 'id' | 'created_at' | 'updated_at'>;
 
 router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
@@ -37,14 +37,14 @@ router.get('/test', async (_req: Request, res: Response) => {
 router.get('/', async (req: Request, res: Response) => {
   const result = await models.User.findAll();
   console.log(result);
-  const users: user[] = [];
-  result.map((u: user) => users.push(u));
+  const users: userType[] = [];
+  result.map((u: userType) => users.push(u));
   res.json(users);
 });
 
 router.post('/create', async (req: Request, res: Response) => {
   console.log(req.body);
-  const postuser: newUser = {
+  const postuser: newUserType = {
     name: req.body.name,
     password: req.body.name,
     point: 0,

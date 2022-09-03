@@ -1,4 +1,4 @@
-export type user = {
+export interface userType {
   id: number;
   name: string;
   password: string;
@@ -8,12 +8,13 @@ export type user = {
   role_id: number;
   created_at: string;
   updated_at: string;
-};
+}
 
-export type account = {
+export interface accountType {
   id: number;
-  nema?: string;
+  nema: string;
   email: string;
+  password: string;
   created_at: string;
   updated_at: string;
-};
+}
