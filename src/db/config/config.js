@@ -9,7 +9,8 @@ if (process.env.ENV === 'prod') {
     port: process.env.DB_PORT,
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
-    // logging: false,
+    timezone: '+09:00',
+    logging: false,
     dialectOptions: {
       ssl: { rejectUnauthorized: true },
     },
@@ -17,12 +18,13 @@ if (process.env.ENV === 'prod') {
 } else {
   config = {
     dialect: process.env.DB_DIARECT,
+    // timezone: '+09:00',
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     username: process.env.DB_USERNAME,
     password: process.env.DB_PASSWORD,
-    logging: false,
+    // logging: false,
   };
 }
 
