@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import { userInfo } from 'os';
 
 const models = require('../../../../db/models');
 
@@ -36,7 +37,16 @@ router.put('/update/:id', async (req: Request, res: Response) => {
   const { id } = req.params;
   models.Accounts.findOne({ where: { id } }).then((account: any) => {
     if (account) {
-      res.json({ status: 200, message: 'ok exist' });
+      // password,name,emailのどれを変更するか判別して更新する。
+      if (req.body.name) {
+        account.name = req.body.name;
+      } else if (req.body.password) {
+        account.password = req.body.password;
+      } else if (req.body.email) {
+        account.email = req.body.email;
+      }
+      account.save();
+      res.json({ status: 200, message: 'update success' });
     } else {
       res.json({ status: 422, message: 'no exist' });
     }

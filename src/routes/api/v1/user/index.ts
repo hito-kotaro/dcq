@@ -66,12 +66,11 @@ router.put('/update/:id', async (req: Request, res: Response) => {
         // パスワードとユーザー名のどちらを更新するか判定して更新する。
         if (req.body.name) {
           user.name = req.body.name;
-          res.json({ status: 200, message: 'update user name' });
         } else if (req.body.password) {
           user.password = req.body.password;
-          res.json({ status: 200, message: 'update password' });
         }
         user.save();
+        res.json({ status: 200, message: 'update success' });
       } else {
         res.json({ status: 422, message: 'user not exist' });
       }
