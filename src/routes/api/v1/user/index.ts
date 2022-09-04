@@ -13,11 +13,15 @@ router.use(express.urlencoded({ extended: true }));
 
 // GET  http://localhost:3000/api/v1/user/
 router.get('/', async (req: Request, res: Response) => {
-  const result = await models.User.findAll();
-  console.log(result);
-  const users: userType[] = [];
-  result.map((u: userType) => users.push(u));
-  res.json(users);
+  try {
+    const result = await models.User.findAll();
+    console.log(result);
+    const users: userType[] = [];
+    result.map((u: userType) => users.push(u));
+    res.json(users);
+  } catch (error) {
+    res.json({ message: error });
+  }
 });
 
 // ユーザー作成
