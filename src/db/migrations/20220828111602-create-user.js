@@ -20,10 +20,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         default: 0,
       },
-      account_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
       role_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
