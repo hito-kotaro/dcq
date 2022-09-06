@@ -27,15 +27,15 @@ router.get('/', async (req: Request, res: Response) => {
 // ユーザー作成
 router.post('/create', async (req: Request, res: Response) => {
   models.User.findOrCreate({
-    where: { name: req.body.name, account_id: req.body.account_id },
+    where: { name: req.body.name },
     defaults: req.body,
   }).then(([user, created]: any) => {
     if (created) {
-      res.json({ status: 200, message: `created account ${req.body.nane}` });
+      res.json({ status: 200, message: `created user ${req.body.nane}` });
     } else {
       res.json({
         status: 422,
-        message: `account ${req.body.name} is already exist`,
+        message: `user ${req.body.name} is already exist`,
       });
     }
   });
@@ -58,28 +58,6 @@ router.delete('/delete/:id', async (req: Request, res: Response) => {
       });
     }
   });
-});
-
-// アカウントの更新
-router.put('/update/:id', async (req: Request, res: Response) => {
-  const { id } = req.params;
-  const accountId = req.body.account_id;
-  models.User.findOne({ where: { id, account_id: accountId } }).then(
-    (user: any) => {
-      if (user) {
-        // パスワードとユーザー名のどちらを更新するか判定して更新する。
-        if (req.body.name) {
-          user.name = req.body.name;
-        } else if (req.body.password) {
-          user.password = req.body.password;
-        }
-        user.save();
-        res.json({ status: 200, message: 'update success' });
-      } else {
-        res.json({ status: 422, message: 'user not exist' });
-      }
-    },
-  );
 });
 
 export default router;
