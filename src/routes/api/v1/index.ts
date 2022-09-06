@@ -1,6 +1,5 @@
 import express, { Request, Response } from 'express';
 import userRouter from './user';
-import accountRouter from './account';
 
 const router = express.Router();
 
@@ -12,6 +11,5 @@ router.get('/', (_req: Request, res: Response) => {
 });
 
 router.use('/user', userRouter);
-router.use('/account', accountRouter);
 
 export default router;
